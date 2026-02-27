@@ -74,9 +74,10 @@ int n = mp.size();
     <div class="step-badge bg-purple">4. Duyệt Map</div>
 
 Mỗi phần tử trong **map** là một **pair** gồm `.first` (key) và `.second` (value).
-
+{% raw %}
 ```cpp
 map<string, int> mp = {{"A", 1}, {"B", 2}, {"C", 3}};
+{% endraw %}
 
 // Cách 1: Duyệt bằng for-each (C++11)
 for (auto x : mp) {
