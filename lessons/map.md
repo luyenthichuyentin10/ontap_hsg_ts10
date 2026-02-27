@@ -35,13 +35,15 @@
 
 Để sử dụng, ta cần khai báo kiểu dữ liệu cho cả **khóa (key)** và **giá trị (value)**:
 
+{% raw %}
 ```cpp
 // Khai báo map có Key là string, Value là int
 map<string, int> mp;
 
 // Khai báo và khởi tạo giá trị
-map<int, string> sv = {{1, "An"}, {2, "Binh"}, {3, "Chi"}};
+map<int, string> sv = `{{1, "An"}, {2, "Binh"}, {3, "Chi"}}`;
 ```
+{% endraw %}
 </div>
 
 <div class="step-card border-green">
