@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập HSG & TS10 Chuyên Tin</title>
+    <script>window.MathJax = { tex: { inlineMath: [['$', '$']] } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tinh chỉnh để Code hiển thị đẹp hơn với Highlight.js */
+        pre code.hljs {
+            padding: 1.5em;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰ <span>MENU</span></button>
+        <h1 class="header-title">ÔN TẬP THI HỌC SINH GIỎI VÀ TUYỂN SINH 10 CHUYÊN TIN</h1>
+    </header>
+
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="menu-category" onclick="toggleSubmenu('sub1')">1. Cấu trúc dữ liệu <span>▾</span></div>
+            <div id="sub1" class="submenu">
+                <a href="#" class="menu-item-parent" onclick="loadLesson('array')">1.1 Array (mảng tĩnh)</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('string')">1.2 String</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('matrix')">1.3 Matrix</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('vector')">1.4 Vector (mảng động)</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('set')">1.5 Set</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('pair')">1.6 Pair</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('map')">1.7 Map</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('struct')">1.8 Struct</a>
+            </div>
+
+            <div class="menu-category" onclick="toggleSubmenu('sub2')">2. Kiến thức toán <span>▾</span></div>
+            <div id="sub2" class="submenu">
+                <div class="menu-item-parent" onclick="toggleSubmenu('sub_2_1')" style="border-left: none;"> 2.1 Số học <span style="font-size: 0.7rem;">▾</span></div>
+                <div id="sub_2_1" class="submenu hidden submenu-level-3">
+                    <a href="#" class="menu-item" onclick="loadLesson('prime')">2.1.1 Số nguyên tố</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('gcd_lcm')">2.1.2 ƯCLN & BCNN</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('modular')">2.1.3 Số dư (Modular)</a>
+                </div>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('set_math')">2.2 Tập hợp</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('bignum')">2.3 Xử lý số lớn</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('base')">2.4 Hệ số</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('geometry')">2.5 Hình học</a>
+            </div>
+
+            <div class="menu-category" onclick="toggleSubmenu('sub3')">3. Thuật toán <span>▾</span></div>
+            <div id="sub3" class="submenu">
+                <a href="#" class="menu-item-parent" onclick="loadLesson('greedy')">3.1 Tham lam</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('binary_search')">3.2 Tìm kiếm nhị phân</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('two_pointer')">3.3 Two pointer</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('prefix_sum')">3.4 Mảng tiền tố - hậu tố</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('dp')">3.5 Quy hoạch động</a>
+            </div>
+
+            <div class="menu-category" onclick="loadLesson('strategy')">4. Chiến thuật thi đấu</div>
+        </nav>
+
+        <main id="main-content">
+            <div id="render-content">
+                <div class="step-card border-blue">
+                    <h2 style="text-align: center;">Chào mừng bạn đến với hệ thống ôn tập</h2>
+                    <p style="text-align: center;">Vui lòng chọn một chuyên đề ở Menu bên trái để bắt đầu.</p>
+                </div>
+            </div>
+            <footer class="teacher-footer">
+                <div class="footer-title">Thầy Hoàng Đăng Quang - Luyện thi Chuyên Tin 10</div>
+                <div class="footer-info">
+                    <span class="footer-item">📞 0903781593</span>
+                    <a href="http://luyenthichuyentin10.edu.vn" target="_blank" class="footer-item">🌐 luyenthichuyentin10.edu.vn</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('main-content').classList.toggle('expanded');
+        }
+
+        function toggleSubmenu(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        async function loadLesson(lessonId) {
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+
+            const renderArea = document.getElementById('render-content');
+            renderArea.innerHTML = "<p>Đang tải nội dung...</p>";
+
+            try {
+                const response = await fetch(`lessons/${lessonId}.md`);
+                if (!response.ok) throw new Error("Không tìm thấy file bài học .md");
+                
+                const markdown = await response.text();
+
+                if (typeof marked !== 'undefined') {
+                    renderArea.innerHTML = marked.parse(markdown);
+                    
+                    // Kích hoạt tô màu bằng Highlight.js
+                    // Đây là cách gọi cực kỳ ổn định, không gây lỗi lặp lại
+                    renderArea.querySelectorAll('pre code').forEach((el) => {
+                        hljs.highlightElement(el);
+                    });
+
+                    if (window.MathJax) MathJax.typesetPromise();
+                }
+                window.scrollTo(0, 0);
+            } catch (error) {
+                renderArea.innerHTML = `<div class="step-card border-red">
+                    <h2 style="color:red">Lỗi tải bài học</h2>
+                    <p>${error.message}</p>
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>
