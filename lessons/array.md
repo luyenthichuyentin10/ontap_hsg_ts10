@@ -1,5 +1,5 @@
 ## ✅ Array (mảng tĩnh)
-
+<br>
 <div class="step-card border-blue">
 <div class="step-badge bg-blue">1. Định nghĩa</div>
 
@@ -85,4 +85,16 @@ int main() {
 ```cpp
 while (cin >> a[n]) { n++; }
 ```
+</div>
+
+<div class="step-card border-yellow">
+    <div class="step-badge bg-yellow">4. Lưu ý khi sử dụng mảng</div>
+<div class="important-note">
+
+* Khai báo mảng vừa đủ theo giới hạn dữ liệu của bài toán để tránh lỗi **tràn bộ nhớ** khi chấm. Nên khai báo dư ra **5** phần tử để làm vùng đệm an toàn
+* Khai báo mảng là biến toàn bộ để tránh tình trạng hết vùng nhớ **stack** được cấp phát cho các hàm.
+* Biến mảng **toàn bộ** sẽ tự tự động khởi tạo giá trị ban đầu là **0**. Nếu dùng biến mảng cục bộ hoặc muốn khởi tạo giá trị cho mảng thì sử dụng hàm `memset(A, 0, sizeof(A))`
+* Tránh dùng mảng tĩnh kích thước biến (VLA): Kiểu khai báo `int n; cin >> n; int a[n];` không phải là chuẩn của C++ (nó là của C99) và rất dễ gây lỗi trên một số trình chấm hoặc gây tràn **Stack** nếu $N$ lớn.
+</div>
+
 </div>

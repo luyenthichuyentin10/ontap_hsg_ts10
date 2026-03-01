@@ -1,5 +1,5 @@
 ## 🔢 Ma Trận (Mảng 2 chiều)
-
+<br>
 <div class="step-card border-blue">
     <div class="step-badge bg-blue">1. Khái niệm</div>
 
@@ -373,4 +373,35 @@ void taoMaPhuong4n2(int n) {
     }
 }
 ```
+</div>
+
+<div class="step-card border-yellow">
+    <div class="step-badge bg-yellow">4. Lưu ý khi sử dụng ma trận</div>
+<div class="important-note">
+
+**1. Thứ tự ưu tiên duyệt phần tử (Cache Locality):** đây là lưu ý quan trọng nhất về hiệu suất. Trong C++, ma trận được lưu trữ theo từng hàng liên tiếp nhau trong bộ nhớ.
+* Nên: Duyệt theo hàng trước, cột sau (Vòng lặp i hàng bên ngoài, j cột bên trong).
+* Không nên: Duyệt theo cột trước, hàng sau. Việc này bắt CPU phải nhảy cóc qua các vùng nhớ không liên tiếp, làm chương trình chạy chậm hơn từ **5-10** lần đối với ma trận lớn.
+
+**2. Giới hạn bộ nhớ (Memory Limit):** ma trận tốn bộ nhớ theo cấp số nhân ($R \times C$).
+* Một ma trận số nguyên int a[10000][10000] sẽ chiếm: $10^8 \times 4$ bytes $\approx 400$ MB.
+* Nếu giới hạn bộ nhớ của bài thi là 128MB hoặc 256MB, khai báo trên sẽ gây lỗi MLE (Memory Limit Exceeded) ngay lập tức.
+* ***Lưu ý:*** Luôn tính toán kỹ tổng số phần tử trước khi khai báo MAXN.
+
+**3. Khai báo mảng toàn cục (Global Array):** giống như mảng 1 chiều, ma trận nên được khai báo bên ngoài hàm `main`.
+* Ma trận khai báo trong hàm main sẽ nằm ở bộ nhớ **Stack**, vốn có dung lượng rất nhỏ (thường chỉ vài MB), dễ gây lỗi **Stack Overflow** dù chưa vượt quá giới hạn bộ nhớ tổng của bài.
+* Khai báo toàn cục giúp ma trận nằm ở bộ nhớ **Static**, tận dụng được tối đa **RAM** cho phép.
+
+**4. Vùng đệm an toàn (Padding):** luôn khai báo kích thước ma trận lớn hơn yêu cầu của đề bài một khoảng nhỏ (thường là 5 đến 10 đơn vị).
+* Ví dụ: Đề cho $N, M \le 1000$, hãy khai báo int a[1005][1005].
+* Việc này giúp tránh lỗi **Access Violation** khi thực hiện các kỹ thuật như loang **(BFS/DFS)** hoặc kiểm tra các ô lân cận ($i-1, j-1$) mà quên kiểm tra biên.
+
+**5. Khởi tạo giá trị (Initialization):** 
+* Với ma trận toàn cục, tất cả phần tử mặc định là **0**.
+* Nếu cần đặt lại giá trị (ví dụ tất cả bằng -1 hoặc 0 cho nhiều bộ test), hãy dùng `memset:memset(a, 0, sizeof(a));`
+* ***Cẩn thận:*** `memset` chỉ hoạt động chính xác với giá trị `0` và `-1` cho ma trận (mảng) kiểu `int`. Với các giá trị khác, Thầy nên dùng vòng lặp hoặc `std::fill`.
+
+**6. Truyền ma trận vào hàm:** Khi truyền ma trận tĩnh vào một hàm, bắt buộc phải ghi rõ kích thước của cột.
+* Ví dụ: `void process(int a[][MAXN], int r, int c)`.
+* Điều này là do trình biên dịch cần biết số cột để tính toán vị trí ô nhớ: $A[i][j] = \text{địa chỉ đầu} + (i \times \text{số cột} + j) \times \text{kích thước kiểu dữ liệu}$.
 </div>

@@ -1,5 +1,5 @@
 ## 🗺️ Map (Ánh xạ / Từ điển)
-
+<br>
 <div class="step-card border-blue">
     <div class="step-badge bg-blue">1. Khái niệm</div>
     
@@ -74,10 +74,10 @@ int n = mp.size();
     <div class="step-badge bg-purple">4. Duyệt Map</div>
 
 Mỗi phần tử trong **map** là một **pair** gồm `.first` (key) và `.second` (value).
-
 {% raw %}
 ```cpp
 map<string, int> mp = {{"A", 1}, {"B", 2}, {"C", 3}};
+{% endraw %}
 
 // Cách 1: Duyệt bằng for-each (C++11)
 for (auto x : mp) {
@@ -89,7 +89,6 @@ for (map<string, int>::iterator it = mp.begin(); it != mp.end(); ++it) {
     cout << it->first << " : " << it->second << endl;
 }
 ```
-{% endraw %}
 </div>
 
 <div class="step-card border-red">
@@ -136,5 +135,4 @@ for (map<string, int>::iterator it = mp.begin(); it != mp.end(); ++it) {
 💡 <b>Lưu ý:</b> Khi truy cập vào một Key chưa tồn tại bằng toán tử <b>mp[key]</b>, Map sẽ tự động tạo ra một phần tử mới với giá trị mặc định (số là 0, xâu là rỗng). Để tránh điều này, hãy dùng hàm <b>mp.count(key)</b> hoặc <b>mp.find(key)</b> trước khi truy xuất.
 </div>
 </div>
-
 

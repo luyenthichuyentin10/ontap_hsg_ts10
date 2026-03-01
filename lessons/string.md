@@ -1,5 +1,5 @@
 ## 🔤 Xâu Ký Tự (String)
-
+<br>
 <div class="step-card border-blue">
     <div class="step-badge bg-blue">1. Khái niệm</div>
     Trong C++, <b>String</b> thực chất là một mảng các ký tự. Mỗi ký tự trong xâu được đánh chỉ số (index) bắt đầu từ <b>0</b>.
