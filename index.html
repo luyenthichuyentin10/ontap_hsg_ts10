@@ -31,9 +31,8 @@
 
     <div class="wrapper">
         <nav id="sidebar">
-            <div class="menu-category" onclick="toggleSubmenu('sub1')">1. Cấu trúc dữ liệu <span>▾</span></div>
-            <div id="sub1" class="submenu">
-                <a href="#" class="menu-item-parent" onclick="loadLesson('array')">1.1 Array (mảng tĩnh)</a>
+            <div class="menu-category" onclick="toggleSubmenu('sub1')">1. Cấu trúc dữ liệu <span id="icon-sub1">▾</span></div>
+            <div id="sub1" class="submenu hidden"> <a href="#" class="menu-item-parent" onclick="loadLesson('array')">1.1 Array (mảng tĩnh)</a>
                 <a href="#" class="menu-item-parent" onclick="loadLesson('string')">1.2 String</a>
                 <a href="#" class="menu-item-parent" onclick="loadLesson('matrix')">1.3 Matrix</a>
                 <a href="#" class="menu-item-parent" onclick="loadLesson('vector')">1.4 Vector (mảng động)</a>
@@ -43,13 +42,13 @@
                 <a href="#" class="menu-item-parent" onclick="loadLesson('struct')">1.8 Struct</a>
             </div>
 
-            <div class="menu-category" onclick="toggleSubmenu('sub2')">2. Kiến thức toán <span>▾</span></div>
-            <div id="sub2" class="submenu">
-                <div class="menu-item-parent" onclick="toggleSubmenu('sub_2_1')" style="border-left: none;"> 2.1 Số học <span style="font-size: 0.7rem;">▾</span></div>
+            <div class="menu-category" onclick="toggleSubmenu('sub2')">2. Kiến thức toán <span id="icon-sub2">▾</span></div>
+            <div id="sub2" class="submenu hidden"> <div class="menu-item-parent" onclick="toggleSubmenu('sub_2_1')" style="border-left: none;"> 2.1 Số học <span id="icon-sub_2_1" style="font-size: 0.7rem;">▾</span></div>
                 <div id="sub_2_1" class="submenu hidden submenu-level-3">
-                    <a href="#" class="menu-item" onclick="loadLesson('prime')">2.1.1 Số nguyên tố</a>
-                    <a href="#" class="menu-item" onclick="loadLesson('gcd_lcm')">2.1.2 ƯCLN & BCNN</a>
-                    <a href="#" class="menu-item" onclick="loadLesson('modular')">2.1.3 Số dư (Modular)</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('div_rules')">2.1.1 Dấu hiệu chia hết</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('square')">2.1.2 Số chính phương</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('prime')">2.1.3 Số nguyên tố</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('div_mul')">2.1.4 Ước và bội</a>
                 </div>
                 <a href="#" class="menu-item-parent" onclick="loadLesson('set_math')">2.2 Tập hợp</a>
                 <a href="#" class="menu-item-parent" onclick="loadLesson('bignum')">2.3 Xử lý số lớn</a>
@@ -57,16 +56,15 @@
                 <a href="#" class="menu-item-parent" onclick="loadLesson('geometry')">2.5 Hình học</a>
             </div>
 
-            <div class="menu-category" onclick="toggleSubmenu('sub3')">3. Thuật toán <span>▾</span></div>
-            <div id="sub3" class="submenu">
-                <a href="#" class="menu-item-parent" onclick="loadLesson('greedy')">3.1 Tham lam</a>
-                <a href="#" class="menu-item-parent" onclick="loadLesson('binary_search')">3.2 Tìm kiếm nhị phân</a>
-                <a href="#" class="menu-item-parent" onclick="loadLesson('two_pointer')">3.3 Two pointer</a>
-                <a href="#" class="menu-item-parent" onclick="loadLesson('prefix_sum')">3.4 Mảng tiền tố - hậu tố</a>
-                <a href="#" class="menu-item-parent" onclick="loadLesson('dp')">3.5 Quy hoạch động</a>
+            <div class="menu-category" onclick="toggleSubmenu('sub3')">3. Tư tưởng lập trình <span id="icon-sub3">▾</span></div>
+            <div id="sub3" class="submenu hidden"> <a href="#" class="menu-item-parent" onclick="loadLesson('greedy')">3.1 Vét cạn</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('binary_search')">3.2 Tham lam</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('two_pointer')">3.3 Chia để trị</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('prefix_sum')">3.4 Quy hoạch động</a>
             </div>
-
-            <div class="menu-category" onclick="loadLesson('strategy')">4. Chiến thuật thi đấu</div>
+            <div class="menu-category" onclick="toggleSubmenu('sub3')">4. Kỹ thuật lập trình <span id="icon-sub3">▾</span></div>
+            <div class="menu-category" onclick="toggleSubmenu('sub3')">5. Thuật toán <span id="icon-sub3">▾</span></div>
+            <div class="menu-category" onclick="loadLesson('strategy')">6. Chiến thuật thi đấu</div>
         </nav>
 
         <main id="main-content">
@@ -92,13 +90,27 @@
             document.getElementById('main-content').classList.toggle('expanded');
         }
 
+        // Hàm đóng mở menu có lưu trạng thái
         function toggleSubmenu(id) {
-            document.getElementById(id).classList.toggle('hidden');
+            const submenu = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            const isHidden = submenu.classList.toggle('hidden');
+
+            // Lưu trạng thái đóng/mở vào localStorage
+            localStorage.setItem('menu-' + id, isHidden ? 'closed' : 'open');
+
+            // Cập nhật icon mũi tên
+            if (icon) icon.innerText = isHidden ? '▾' : '▴';
         }
 
         async function loadLesson(lessonId) {
-            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            // 1. Xóa active cũ và lưu bài học hiện tại
+            document.querySelectorAll('.menu-item, .menu-item-parent').forEach(el => el.classList.remove('active'));
+            localStorage.setItem('lastLesson', lessonId);
+
+            // 2. Kích hoạt màu active cho mục đang chọn
+            const activeMenu = document.querySelector(`[onclick*="'${lessonId}'"]`);
+            if (activeMenu) activeMenu.classList.add('active');
 
             const renderArea = document.getElementById('render-content');
             renderArea.innerHTML = "<p>Đang tải nội dung...</p>";
@@ -112,12 +124,12 @@
                 if (typeof marked !== 'undefined') {
                     renderArea.innerHTML = marked.parse(markdown);
                     
-                    // Kích hoạt tô màu bằng Highlight.js
-                    // Đây là cách gọi cực kỳ ổn định, không gây lỗi lặp lại
+                    // Tô màu code
                     renderArea.querySelectorAll('pre code').forEach((el) => {
                         hljs.highlightElement(el);
                     });
 
+                    // Render công thức toán
                     if (window.MathJax) MathJax.typesetPromise();
                 }
                 window.scrollTo(0, 0);
@@ -128,6 +140,28 @@
                 </div>`;
             }
         }
+
+        // --- LOGIC PHỤC HỒI TRẠNG THÁI KHI LOAD TRANG ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Phục hồi trạng thái đóng/mở của các menu
+            const submenus = ['sub1', 'sub2', 'sub3', 'sub_2_1']; 
+            submenus.forEach(id => {
+                const state = localStorage.getItem('menu-' + id);
+                const submenu = document.getElementById(id);
+                const icon = document.getElementById('icon-' + id);
+
+                if (state === 'open') {
+                    submenu.classList.remove('hidden');
+                    if (icon) icon.innerText = '▴';
+                }
+            });
+
+            // 2. Phục hồi bài học cuối cùng đã xem
+            const lastLesson = localStorage.getItem('lastLesson');
+            if (lastLesson) {
+                loadLesson(lastLesson);
+            }
+        });
     </script>
 </body>
 </html>

@@ -114,6 +114,44 @@ body {
 .bg-yellow { background-color: #dfdb06; }
 .bg-purple { background-color: #cd06df; }
 
+/* --- ĐỊNH DẠNG GHI CHÚ QUAN TRỌNG (IMPORTANT NOTE) --- */
+.important-note {
+    background-color: #fffbeb; /* Nền vàng nhạt nhẹ nhàng */
+    border-left: 6px solid #f59e0b; /* Viền cam vàng đặc trưng */
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 4px 12px 12px 4px;
+    color: #92400e; /* Màu chữ nâu đậm dễ đọc */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1); /* Đổ bóng nhẹ cùng tông màu viền */
+}
+
+/* Thêm biểu tượng bóng đèn phía trước tiêu đề */
+.important-note b:first-child::before {
+    margin-right: 8px;
+    filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.5));
+}
+
+/* Định dạng các đoạn code inline bên trong ghi chú quan trọng */
+.important-note code, .important-note .inline-code {
+    background-color: #fef3c7 !important; /* Nền đậm hơn một chút so với khung note */
+    color: #b45309 !important; /* Chữ màu hổ phách */
+    border: 1px solid #fcd34d !important;
+}
+
+.garden-table { border-collapse: collapse; margin: 20px auto; }
+.garden-table td { border: 1px solid #cbd5e1; width: 60px; height: 40px; text-align: center; }
+.val-cell { background-color: #fef08a; font-weight: bold; color: #0c4a6e;}
+.idx-row { background: #f1f5f9; font-weight: bold; color: #64748b; }
+
+.math-formula {
+    background-color: #f0f9ff; padding: 15px; border-radius: 8px;
+    text-align: center; font-size: 1.2em; color: var(--color-dark); 
+    border: 1px dashed var(--color-primary); margin: 15px 0;
+}
+
 /* --- TÙY CHỈNH HIGHLIGHT.JS CHUẨN VS CODE --- */
 
 /* Định dạng code trên cùng dòng văn bản */
@@ -198,11 +236,6 @@ pre code.hljs {
     color: #5ee727 !important; /* Xanh ngọc */
     font-weight: bold;
 }
-
-.garden-table { border-collapse: collapse; margin: 20px auto; }
-.garden-table td { border: 1px solid #cbd5e1; width: 60px; height: 40px; text-align: center; }
-.val-cell { background-color: #fef08a; font-weight: bold; color: #0c4a6e;}
-.idx-row { background: #f1f5f9; font-weight: bold; color: #64748b; }
 
 /* --- TỔNG HỢP CSS MENU ĐA CẤP --- */
 
@@ -298,33 +331,6 @@ pre code.hljs {
     background-color: #f0f9ff; padding: 15px; border-radius: 8px;
     text-align: center; font-size: 1.2em; color: var(--color-dark); 
     border: 1px dashed var(--color-primary); margin: 15px 0;
-}
-
-/* --- ĐỊNH DẠNG GHI CHÚ QUAN TRỌNG (IMPORTANT NOTE) --- */
-.important-note {
-    background-color: #fffbeb; /* Nền vàng nhạt nhẹ nhàng */
-    border-left: 6px solid #f59e0b; /* Viền cam vàng đặc trưng */
-    padding: 15px 20px;
-    margin: 20px 0;
-    border-radius: 4px 12px 12px 4px;
-    color: #92400e; /* Màu chữ nâu đậm dễ đọc */
-    font-size: 0.95rem;
-    line-height: 1.6;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1); /* Đổ bóng nhẹ cùng tông màu viền */
-}
-
-/* Thêm biểu tượng bóng đèn phía trước tiêu đề */
-.important-note b:first-child::before {
-    margin-right: 8px;
-    filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.5));
-}
-
-/* Định dạng các đoạn code inline bên trong ghi chú quan trọng */
-.important-note code, .important-note .inline-code {
-    background-color: #fef3c7 !important; /* Nền đậm hơn một chút so với khung note */
-    color: #b45309 !important; /* Chữ màu hổ phách */
-    border: 1px solid #fcd34d !important;
 }
 
 /* --- FOOTER --- */
