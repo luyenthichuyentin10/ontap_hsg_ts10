@@ -141,15 +141,39 @@ body {
     border: 1px solid #fcd34d !important;
 }
 
-.garden-table { border-collapse: collapse; margin: 20px auto; }
-.garden-table td { border: 1px solid #cbd5e1; width: 60px; height: 40px; text-align: center; }
-.val-cell { background-color: #fef08a; font-weight: bold; color: #0c4a6e;}
-.idx-row { background: #f1f5f9; font-weight: bold; color: #64748b; }
+/* Styles for breakdown table */
+.breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+.breakdown-table th, .breakdown-table td {
+    border: 1px solid #e2e8f0;
+    padding: 10px;
+    text-align: center;
+}
+.breakdown-table th { background-color: #ffedd5; color: #c2410c; }
 
 .math-formula {
     background-color: #f0f9ff; padding: 15px; border-radius: 8px;
-    text-align: center; font-size: 1.2em; color: var(--color-dark); 
+    text-align: center; font-size: 1.2em; color: #070abb; 
     border: 1px dashed var(--color-primary); margin: 15px 0;
+}
+
+/* Phần ghi chú bên dưới */
+.formula-notes {
+    margin-top: 15px;
+    font-size: 0.8em;      /* Chữ nhỏ hơn so với công thức */
+    text-align: left;     /* Canh lề trái */
+    display: inline-block; /* Giúp căn chỉnh nội dung */
+    width: 100%;          /* Đảm bảo chiếm hết chiều ngang để canh trái chuẩn */
+}
+
+/* Tinh chỉnh danh sách ghi chú (nếu dùng ul/li) */
+.formula-notes ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding: 0;
 }
 
 /* --- TÙY CHỈNH HIGHLIGHT.JS CHUẨN VS CODE --- */
