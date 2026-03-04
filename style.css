@@ -154,6 +154,71 @@ body {
 }
 .breakdown-table th { background-color: #ffedd5; color: #c2410c; }
 
+/* Khung bao ngoài của bảng */
+  .geometry-table-container {
+    overflow-x: auto;
+    margin: 25px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Định dạng bảng */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #334155;
+  }
+
+  /* Dòng tiêu đề (Header) */
+  .styled-table thead tr {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); /* Màu xanh đậm Navy */
+    color: #ffffff;
+    text-align: center; /* Canh giữa tiêu đề theo yêu cầu */
+  }
+
+  .styled-table th {
+    padding: 15px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid #1e293b;
+  }
+
+  /* Định dạng các ô (Cells) */
+  .styled-table td {
+    padding: 12px 20px;
+    border: 1px solid #e2e8f0;
+    line-height: 1.6;
+    vertical-align: middle;
+  }
+
+  /* Hiệu ứng dòng xen kẽ (Zebra stripes) */
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f8fafc;
+  }
+
+  /* Hiệu ứng khi di chuột qua dòng (Hover) */
+  .styled-table tbody tr:hover {
+    background-color: #f1f5f9;
+    transition: background-color 0.2s ease;
+  }
+
+  /* Cột tiêu đề bên trái (nếu có) */
+  .styled-table td:first-child {
+    font-weight: 600;
+    background-color: #f8fafc;
+    color: #1e293b;
+    width: 20%;
+  }
+
+  /* Màu sắc trạng thái đặc biệt */
+  .text-easy { color: #16a34a; font-weight: bold; }   /* Màu xanh lá cho mức Dễ */
+  .text-medium { color: #ea580c; font-weight: bold; } /* Màu cam cho mức Trung bình */
+  .text-danger { color: #dc2626; font-weight: bold; } /* Màu đỏ cho lưu ý quan trọng */
+
 .math-formula {
     background-color: #f0f9ff; padding: 15px; border-radius: 8px;
     text-align: center; font-size: 1.2em; color: #070abb; 
