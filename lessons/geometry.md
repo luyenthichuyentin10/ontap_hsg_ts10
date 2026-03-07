@@ -471,6 +471,135 @@ bool isInsidePolygon(Point M, vector<Point>& p) {
     </table>
 </div>
 
+**5. Rời rạc hóa tọa độ**
+
+- **Phân tích:** Khi bài toán cho tọa độ rất lớn (ví dụ $10^9$) nhưng số lượng điểm $N$ lại nhỏ ($10^5$), ta không thể dùng tọa độ làm chỉ số mảng. Rời rạc hóa giúp chuyển các giá trị tọa độ thực tế thành các giá trị nguyên nhỏ ($1, 2, \dots, N$) mà vẫn giữ nguyên thứ tự tương đối giữa chúng.
+- **Các bước thực hiện:**
+    1. Lưu và sắp xếp danh sách hoành độ hoặc tung độ.
+    2. Loại các hoành độ và tung độ trùng. Lúc này index của các hoành độ hoặc tung độ chính là các giá trị đã rời rạc hóa.
+    3. Áp dụng tìm kiếm nhị phân để xác định vị trí các giá trị hoành độ hoặc tung độ từ đó xử lý các yêu cầu bài toán.
+- **Ví dụ:**
+    - Cho tập tọa độ $X = \{100, 10^9, 50, 10^9\}$.
+    - Sau khi rời rạc hóa, ta có các giá trị phân biệt đã sắp xếp: $\{50, 100, 10^9\}$
+        - $50 \rightarrow 1$
+        - $100 \rightarrow 2$
+        - $10^9 \rightarrow 3$ 
+```cpp
+vector<int> toa_do_x = {100, 1000000000, 50, 1000000000};
+sort(toa_do_x.begin(), toa_do_x.end());
+// Loại bỏ các giá trị trùng lặp
+coords.erase(unique(toa_do_x.begin(), toa_do_x.end()), toa_do_x.end());
+
+// Tìm giá trị rời rạc hóa của x
+int getCompressed(int x) {
+    return lower_bound(toa_do_x.begin(), toa_do_x.end(), x) - toa_do_x.begin() + 1;
+}
+```
+
+**6. Thuật toán đường quét (sweep line)**
+
+- **Phân tích:** Thay vì xét mọi cặp đối tượng ($O(N^2)$), ta tưởng tượng có một đường thẳng (thường là thẳng đứng) quét từ trái sang phải qua mặt phẳng Oxy. Thuật toán chỉ xử lý các sự kiện (Events) tại các điểm quan trọng (ví dụ: các đầu mút đoạn thẳng).
+- **Các bước thực hiện:**
+    1. **Định nghĩa Sự kiện (Event):** Chuyển đổi dữ liệu bài toán thành các điểm sự kiện. Mỗi sự kiện thường lưu: Tọa độ $x$, Tọa độ $y$ liên quan, và Loại sự kiện (Bắt đầu hay Kết thúc).
+    2. **Sắp xếp Sự kiện:** Sắp xếp tất cả sự kiện theo tọa độ $x$ tăng dần.
+    3. **Quét và Cập nhật (Sweep & Maintain):** Duyệt qua từng sự kiện. Cập nhật trạng thái "đang hoạt động" (Active Set) và tính toán kết quả dựa trên khoảng cách giữa sự kiện hiện tại và sự kiện trước đó.
+- **Ví dụ:** Cho $N$ hình chữ nhật, tính tổng diện tích vùng không gian bị bao phủ bởi chúng. Các hình có thể chồng lên nhau.
+    - Minh họa từng bước (Mô phỏng Sweep Line): Giả sử ta có 2 hình chữ nhật:
+        - HCN 1: $(x_1=1, y_1=1)$ đến $(x_2=4, y_2=4)$
+        - HCN 2: $(x_1=3, y_1=2)$ đến $(x_2=6, y_2=5)$
+    - Cách Đường quét hoạt động:
+        - Tạo sự kiện: 
+            - Tại $x=1$: Mở HCN 1 (Đoạn $y$ từ $1 \rightarrow 4$).
+            - Tại $x=3$: Mở HCN 2 (Đoạn $y$ từ $2 \rightarrow 5$).
+            - Tại $x=4$: Đóng HCN 1 (Xóa đoạn $y$ từ $1 \rightarrow 4$).
+            - Tại $x=6$: Đóng HCN 2 (Xóa đoạn $y$ từ $2 \rightarrow 5$).
+        - Quét:
+            - Từ $x=1$ đến $x=3$: Khoảng cách $\Delta x = 2$. Cạnh $y$ đang hoạt động là $[1, 4]$ (độ dài 3). Diện tích = $2 \times 3 = 6$.
+            - Từ $x=3$ đến $x=4$: Khoảng cách $\Delta x = 1$. Cạnh $y$ đang hoạt động là hợp của $[1, 4]$ và $[2, 5]$ $\rightarrow$ đoạn $[1, 5]$ (độ dài 4). Diện tích = $1 \times 4 = 4$.
+            - Từ $x=4$ đến $x=6$: Khoảng cách $\Delta x = 2$. Đoạn $[1, 4]$ bị xóa, chỉ còn đoạn $[2, 5]$ (độ dài 3). Diện tích = $2 \times 3 = 6$.
+            - Tổng diện tích = $6 + 4 + 6 = 16$.
+```cpp
+// Cấu trúc mô tả một Sự kiện trên đường quét
+struct SuKien {
+    double x;      // Tọa độ x của đường quét (vị trí sự kiện)
+    double y1, y2; // Khoảng y của cạnh hình chữ nhật (từ dưới lên trên)
+    int loai;      // 1: Mở (Gặp cạnh trái), -1: Đóng (Gặp cạnh phải)
+
+    // Hàm hỗ trợ sắp xếp các sự kiện từ trái sang phải theo trục Ox
+    bool operator<(const SuKien& khac) const {
+        return x < khac.x;
+    }
+};
+
+// Hàm tính tổng độ dài các đoạn y đang hoạt động (Bài toán gộp đoạn 1D)
+double tinhTongChieuDaiY(const vector<pair<double, double>>& cac_doan_y_dang_mo) {
+    if (cac_doan_y_dang_mo.empty()) return 0;
+    
+    // Copy ra một mảng mới để sắp xếp các đoạn theo y1 tăng dần
+    vector<pair<double, double>> cac_doan = cac_doan_y_dang_mo;
+    sort(cac_doan.begin(), cac_doan.end());
+
+    double tong_chieu_dai = 0;
+    double y1_hien_tai = cac_doan[0].first;
+    double y2_hien_tai = cac_doan[0].second;
+
+    for (int i = 1; i < cac_doan.size(); i++) {
+        // Nếu đoạn tiếp theo bị giao hoặc nối tiếp với đoạn hiện tại
+        if (cac_doan[i].first <= y2_hien_tai) {
+            // Gộp lại bằng cách kéo dài y2_hien_tai (nếu cần)
+            y2_hien_tai = max(y2_hien_tai, cac_doan[i].second);
+        } else {
+            // Nếu là một đoạn rời rạc hoàn toàn mới
+            // 1. Cộng chiều dài đoạn vừa xét xong vào tổng
+            tong_chieu_dai += (y2_hien_tai - y1_hien_tai);
+            // 2. Cập nhật lại mốc mới
+            y1_hien_tai = cac_doan[i].first;
+            y2_hien_tai = cac_doan[i].second;
+        }
+    }
+    // Đừng quên cộng đoạn cuối cùng vào tổng
+    tong_chieu_dai += (y2_hien_tai - y1_hien_tai);
+    return tong_chieu_dai;
+}
+
+// Hàm chính: Tính tổng diện tích bị phủ bởi các hình chữ nhật
+double tinhTongDienTich(vector<SuKien>& danh_sach_su_kien) {
+    // Bước 1: Sắp xếp tất cả sự kiện theo thứ tự quét từ trái sang phải
+    sort(danh_sach_su_kien.begin(), danh_sach_su_kien.end()); 
+
+    double tong_dien_tich = 0;
+    
+    // Danh sách lưu các đoạn y của các hình chữ nhật đang bị đường quét cắt qua
+    vector<pair<double, double>> cac_doan_y_dang_mo;
+
+    // Bước 2: Bắt đầu quét qua từng sự kiện
+    for (int i = 0; i < danh_sach_su_kien.size(); i++) {
+        
+        // Tính diện tích phần hcn tạo bởi đường quét trước đó và đường quét hiện tại
+        if (i > 0) {
+            double khoang_cach_x = danh_sach_su_kien[i].x - danh_sach_su_kien[i-1].x;
+            double chieu_dai_y = tinhTongChieuDaiY(cac_doan_y_dang_mo);
+            
+            // Diện tích = chiều rộng (delta X) * chiều cao (tổng chiều dài Y)
+            tong_dien_tich += khoang_cach_x * chieu_dai_y;
+        }
+
+        // Bước 3: Cập nhật trạng thái mảng Y theo sự kiện hiện tại
+        if (danh_sach_su_kien[i].loai == 1) {
+            // Sự kiện Mở: Thêm đoạn y mới vào danh sách đang hoạt động
+            cac_doan_y_dang_mo.push_back({danh_sach_su_kien[i].y1, danh_sach_su_kien[i].y2});
+        } else {
+            // Sự kiện Đóng: Tìm và xóa đoạn y này khỏi danh sách
+            auto vi_tri = find(cac_doan_y_dang_mo.begin(), cac_doan_y_dang_mo.end(), 
+                               make_pair(danh_sach_su_kien[i].y1, danh_sach_su_kien[i].y2));
+            if (vi_tri != cac_doan_y_dang_mo.end()) {
+                cac_doan_y_dang_mo.erase(vi_tri);
+            }
+        }
+    }
+    return tong_dien_tich;
+}
+```
 </div>
 
 <div class="important-note">
