@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập HSG & TS10 Chuyên Tin</title>
+    <script>window.MathJax = { tex: { inlineMath: [['$', '$']] } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tinh chỉnh để Code hiển thị đẹp hơn với Highlight.js */
+        pre code.hljs {
+            padding: 1.5em;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰ <span>MENU</span></button>
+        <h1 class="header-title">ÔN TẬP THI HỌC SINH GIỎI VÀ TUYỂN SINH 10 CHUYÊN TIN</h1>
+    </header>
+
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="menu-category" onclick="toggleSubmenu('sub1')">1. Cấu trúc dữ liệu <span id="icon-sub1">▾</span></div>
+            <div id="sub1" class="submenu hidden"> <a href="#" class="menu-item-parent" onclick="loadLesson('array')">1.1 Array (mảng tĩnh)</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('string')">1.2 String</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('matrix')">1.3 Matrix</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('vector')">1.4 Vector (mảng động)</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('set')">1.5 Set</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('pair')">1.6 Pair</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('map')">1.7 Map</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('struct')">1.8 Struct</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('stack')">1.9 Stack</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('queue')">1.10 Queue</a>
+            </div>
+
+            <div class="menu-category" onclick="toggleSubmenu('sub2')">2. Kiến thức toán <span id="icon-sub2">▾</span></div>
+            <div id="sub2" class="submenu hidden"> <div class="menu-item-parent" onclick="toggleSubmenu('sub_2_1')" style="border-left: none;"> 2.1 Số học <span id="icon-sub_2_1" style="font-size: 0.7rem;">▾</span></div>
+                <div id="sub_2_1" class="submenu hidden submenu-level-3">
+                    <a href="#" class="menu-item" onclick="loadLesson('div_rules')">2.1.1 Dấu hiệu chia hết</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('square')">2.1.2 Số chính phương</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('prime')">2.1.3 Số nguyên tố</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('perfect')">2.1.4 Số hoàn hảo</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('div_mul')">2.1.4 Ước và bội</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('sequence')">2.1.5 Tính chất dãy số</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('factorial')">2.1.6 Giai thừa</a>
+                    <a href="#" class="menu-item" onclick="loadLesson('modular')">2.1.7 Đồng dư</a>
+                </div>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('aggregate')">2.2 Tập hợp</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('bignum')">2.3 Xử lý số lớn</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('base')">2.4 Hệ số</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('geometry')">2.5 Hình học</a>
+            </div>
+
+            <div class="menu-category" onclick="toggleSubmenu('sub3')">3. Tư tưởng lập trình <span id="icon-sub3">▾</span></div>
+            <div id="sub3" class="submenu hidden"> 
+                <a href="#" class="menu-item-parent" onclick="loadLesson('brute_force')">3.1 Vét cạn</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('greedy')">3.2 Tham lam</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('recursion')">3.3 Đệ quy</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('d&c')">3.4 Chia để trị</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('dp')">3.5 Quy hoạch động</a>
+            </div>
+            <div class="menu-category" onclick="toggleSubmenu('sub4')">4. Kỹ thuật & Thuật toán <span id="icon-sub3">▾</span></div>
+            <div id="sub4" class="submenu hidden"> 
+                <a href="#" class="menu-item-parent" onclick="loadLesson('bin_sreach')">4.1 Tìm kiếm nhị phân</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('sort')">4.2 Sắp xếp</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('two_pointer')">4.3 Two pointer</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('prefix_suffix')">4.4 Mảng tiền tố - hậu tố</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('prefix_sum')">4.5 Mảng cộng dồn</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('kadane')">4.6 Kadane</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('diff_array')">4.7 Mảng hiệu</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('bit')">4.8 Xử lý bit</a>
+                <a href="#" class="menu-item-parent" onclick="loadLesson('generation')">4.9 Sinh dữ liệu</a>
+            </div>
+            <div class="menu-category" onclick="loadLesson('strategy')">6. Chiến thuật thi đấu</div>
+        </nav>
+
+        <main id="main-content">
+            <div id="render-content">
+                <div class="step-card border-blue">
+                    <h2 style="text-align: center;">Chào mừng bạn đến với hệ thống ôn tập</h2>
+                    <p style="text-align: center;">Vui lòng chọn một chuyên đề ở Menu bên trái để bắt đầu.</p>
+                </div>
+            </div>
+            <footer class="teacher-footer">
+                <div class="footer-title">Thầy Hoàng Đăng Quang - Luyện thi Chuyên Tin 10</div>
+                <div class="footer-info">
+                    <span class="footer-item">📞 0903781593</span>
+                    <a href="http://luyenthichuyentin10.edu.vn" target="_blank" class="footer-item">🌐 luyenthichuyentin10.edu.vn</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('main-content').classList.toggle('expanded');
+        }
+
+        // Hàm đóng mở menu có lưu trạng thái
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            const isHidden = submenu.classList.toggle('hidden');
+
+            // Lưu trạng thái đóng/mở vào localStorage
+            localStorage.setItem('menu-' + id, isHidden ? 'closed' : 'open');
+
+            // Cập nhật icon mũi tên
+            if (icon) icon.innerText = isHidden ? '▾' : '▴';
+        }
+
+        async function loadLesson(lessonId) {
+            // 1. Xóa active cũ và lưu bài học hiện tại
+            document.querySelectorAll('.menu-item, .menu-item-parent').forEach(el => el.classList.remove('active'));
+            localStorage.setItem('lastLesson', lessonId);
+
+            // 2. Kích hoạt màu active cho mục đang chọn
+            const activeMenu = document.querySelector(`[onclick*="'${lessonId}'"]`);
+            if (activeMenu) activeMenu.classList.add('active');
+
+            const renderArea = document.getElementById('render-content');
+            renderArea.innerHTML = "<p>Đang tải nội dung...</p>";
+
+            try {
+                const response = await fetch(`lessons/${lessonId}.md`);
+                if (!response.ok) throw new Error("Không tìm thấy file bài học .md");
+                
+                const markdown = await response.text();
+
+                if (typeof marked !== 'undefined') {
+                    renderArea.innerHTML = marked.parse(markdown);
+                    
+                    // Tô màu code
+                    renderArea.querySelectorAll('pre code').forEach((el) => {
+                        hljs.highlightElement(el);
+                    });
+
+                    // Render công thức toán
+                    if (window.MathJax) MathJax.typesetPromise();
+                }
+                window.scrollTo(0, 0);
+            } catch (error) {
+                renderArea.innerHTML = `<div class="step-card border-red">
+                    <h2 style="color:red">Lỗi tải bài học</h2>
+                    <p>${error.message}</p>
+                </div>`;
+            }
+        }
+
+        // --- LOGIC PHỤC HỒI TRẠNG THÁI KHI LOAD TRANG ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Phục hồi trạng thái đóng/mở của các menu
+            const submenus = ['sub1', 'sub2', 'sub3', 'sub_2_1']; 
+            submenus.forEach(id => {
+                const state = localStorage.getItem('menu-' + id);
+                const submenu = document.getElementById(id);
+                const icon = document.getElementById('icon-' + id);
+
+                if (state === 'open') {
+                    submenu.classList.remove('hidden');
+                    if (icon) icon.innerText = '▴';
+                }
+            });
+
+            // 2. Phục hồi bài học cuối cùng đã xem
+            const lastLesson = localStorage.getItem('lastLesson');
+            if (lastLesson) {
+                loadLesson(lastLesson);
+            }
+        });
+    </script>
+</body>
+</html>
