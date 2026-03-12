@@ -32,8 +32,7 @@ bool tieuChiSapXep(const HocSinh& a, const HocSinh& b) {
 }
 
 int main() {
-    vector<HocSinh> ds = {{"An", 8}, {"Binh", 9}, {"Chau", 8}};
-    
+   
     // Gọi hàm sort truyền theo tên hàm so sánh
     sort(ds.begin(), ds.end(), tieuChiSapXep);
     
